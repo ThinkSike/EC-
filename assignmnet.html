@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EC Assign_01</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        /* Carousel container */
+        .carousel {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            margin: 40px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .carousel img {
+            width: 100%;
+            display: none;
+        }
+
+        .carousel img.active {
+            display: block;
+        }
+
+        /* Navigation buttons */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            margin-top: -20px;
+            padding: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 50%;
+            background-color: rgba(0,0,0,0.5);
+            user-select: none;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        /* Dynamic greeting */
+        #greeting {
+            font-size: 24px;
+            margin-top: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Name: Tiya H. Bhavsar</h1>
+    <h1>PRN: 1012412071</h1>
+    <div id="greeting"></div>
+
+    <div class="carousel">
+        <img src="https://picsum.photos/id/1011/600/400" class="active" alt="Photo 1">
+        <img src="https://picsum.photos/id/1012/600/400" alt="Photo 2">
+        <img src="https://picsum.photos/id/1013/600/400" alt="Photo 3">
+        <img src="https://picsum.photos/id/1015/600/400" alt="Photo 4">
+        <img src="https://picsum.photos/id/1016/600/400" alt="Photo 5">
+
+        <span class="prev" onclick="changeSlide(-1)">&#10094;</span>
+        <span class="next" onclick="changeSlide(1)">&#10095;</span>
+    </div>
+
+    <script>
+        // Dynamic greeting based on time
+        function updateGreeting() {
+            const greetingElement = document.getElementById("greeting");
+            const now = new Date();
+            const hour = now.getHours();
+
+            let greeting;
+            if(hour < 12) {
+                greeting = "Good Morning!";
+            } else if(hour < 18) {
+                greeting = "Good Afternoon!";
+            } else {
+                greeting = "Good Evening!";
+            }
+
+            greetingElement.textContent = greeting;
+        }
+
+        updateGreeting(); // Call once on load
+
+        // Carousel functionality
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.carousel img');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if(i === index) slide.classList.add('active');
+            });
+        }
+
+        function changeSlide(direction) {
+            currentIndex += direction;
+            if(currentIndex < 0) currentIndex = slides.length - 1;
+            if(currentIndex >= slides.length) currentIndex = 0;
+            showSlide(currentIndex);
+        }
+
+        // Optional: Auto-slide every 5 seconds
+        setInterval(() => changeSlide(1), 5000);
+    </script>
+
+</body>
+</html>
